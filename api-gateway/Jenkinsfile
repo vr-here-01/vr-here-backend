@@ -19,7 +19,7 @@ pipeline {
         stage('Build Maven Project') {
             steps {
                 // Build the Spring Boot application using Maven
-               sh './mvnw clean package -DskipTests'
+               sh './api-gateway/mvnw clean package -DskipTests'
             }
         }
 
