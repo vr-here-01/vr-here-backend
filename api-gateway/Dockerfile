@@ -1,13 +1,27 @@
-FROM openjdk:17-jdk-alpine
+# Use a base image with JDK 17 and Maven
+FROM maven:3.8.5-openjdk-17-slim AS build
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the pre-built JAR from the local machine into the container
-COPY /api-gateway-0.0.1-SNAPSHOT.jar /app/app.jar
+# Copy the Maven Wrapper and project files
+COPY ./api-gateway/mvnw ./api-gateway/
+COPY ./api-gateway/mvnw.cmd ./api-gateway/
+COPY ./api-gateway/.mvn ./api-gateway/.mvn
+COPY ./api-gateway/pom.xml ./api-gateway/
+COPY ./api-gateway/src ./api-gateway/src
 
-# Expose the port your app runs on
-EXPOSE 8080
+# Make the Maven Wrapper executable
+RUN chmod +x ./api-gateway/mvnw
 
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Run the build using the Maven Wrapper
+RUN ./api-gateway/mvnw clean package -DskipTests
+
+# Create a new image for the runtime
+FROM openjdk:17-jdk-slim
+
+# Copy the built jar from the previous stage
+COPY --from=build /app/api-gateway/target/*.jar /app/api-gateway.jar
+
+# Specify the command to run the application
+ENTRYPOINT ["java", "-jar", "/app/api-gateway.jar"]
