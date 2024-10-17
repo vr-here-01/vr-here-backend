@@ -18,7 +18,10 @@ pipeline {
 
         stage('Build Maven Project') {
             steps {
-                sh './api-gateway/mvnw clean package -DskipTests'
+                dir('api-gateway') {
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
+                }
             }
         }
 
