@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copy the JAR file from your build context into the container
-COPY target/your-application.jar /app/app.jar
+COPY target/api-gateway-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Expose the port your app runs on
 EXPOSE 8080
