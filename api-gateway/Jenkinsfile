@@ -6,6 +6,7 @@ pipeline {
         APP_NAME = 'api-gateway'
         PROJECT_NAME = 'your-project-name'
         IMAGE_TAG = 'latest'
+        OPENSHIFT_SERVER = 'https://api.your-openshift-cluster:6443'
     }
 
     stages {
@@ -15,22 +16,22 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Maven Project') {
             steps {
-                script {
-                    sh 'docker build -t ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} .'
-                }
+                sh './api-gateway/mvnw clean package -DskipTests'
             }
         }
 
-        stage('Push Docker Image to OpenShift Registry') {
+        stage('Trigger OpenShift Build') {
             steps {
                 script {
-                    sh '''
-                    oc login --token=your-token --server=https://api.your-openshift-cluster:6443
-                    docker login -u $(oc whoami) -p $(oc whoami -t) ${REGISTRY}
-                    docker push ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG}
-                    '''
+                    withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
+                        // Login to OpenShift
+                        sh """
+                        oc login --token=\$TOKEN --server=$OPENSHIFT_SERVER
+                        oc start-build $APP_NAME --from-dir=api-gateway/ --follow
+                        """
+                    }
                 }
             }
         }
@@ -38,11 +39,11 @@ pipeline {
         stage('Deploy to OpenShift') {
             steps {
                 script {
-                    sh '''
-                    oc project ${PROJECT_NAME}
-                    oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout latest ${APP_NAME}
-                    oc expose svc/${APP_NAME}
-                    '''
+                    sh """
+                    oc project $PROJECT_NAME
+                    oc new-app $REGISTRY/$PROJECT_NAME/$APP_NAME:$IMAGE_TAG --name=$APP_NAME || oc rollout latest $APP_NAME
+                    oc expose svc/$APP_NAME
+                    """
                 }
             }
         }
