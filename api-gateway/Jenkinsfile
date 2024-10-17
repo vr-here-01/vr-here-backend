@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        jdk 'JDK-17'  // Replace 'JDK-17' with the name you gave your JDK installation in Jenkins
+    }
     environment {
         REGISTRY = "your-openshift-registry-url" // e.g., "image-registry.openshift-image-registry.svc:5000"
         APP_NAME = "api-gateway"              // Name of your app
