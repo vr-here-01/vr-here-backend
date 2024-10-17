@@ -10,4 +10,4 @@ COPY /api-gateway-0.0.1-SNAPSHOT.war /app/app.war
 EXPOSE 8080
 
 # Run the JAR file
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.war"]
