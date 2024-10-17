@@ -18,8 +18,10 @@ pipeline {
 
         stage('Set Executable Permission') {
             steps {
-                // Set executable permission for mvnw
-                sh 'chmod +x api-gateway/mvnw'
+                dir('api-gateway') {  // Change working directory to api-gateway
+                     // Set executable permission for mvnw
+                     sh 'chmod +x mvnw'
+                }
             }
         }
 
