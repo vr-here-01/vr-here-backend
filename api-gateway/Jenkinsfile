@@ -10,11 +10,11 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
-            steps {
-                git branch: 'master', url: 'https://github.com/vr-here-01/vr-here-backend.git'
-            }
-        }
+//         stage('Checkout Code') {
+//             steps {
+//                 git branch: 'master', url: 'https://github.com/vr-here-01/vr-here-backend.git'
+//             }
+//         }
 
         stage('Build Maven Project') {
             steps {
