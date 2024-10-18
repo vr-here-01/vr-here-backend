@@ -1,0 +1,13 @@
+image:
+  repository: image-registry.openshift-image-registry.svc:5000/rupesh-kallepelli-dev/api-gateway-image  # This should point to the OpenShift ImageStream
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi

@@ -1,0 +1,19 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: api-gateway
+spec:
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/vr-here-01/vr-here-backend.git'
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'maven:3.8.4-openjdk-17'  # Maven JDK image to build the Spring Boot app
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'api-gateway-image:latest'
+  triggers: []
