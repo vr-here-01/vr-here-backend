@@ -1,33 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: rupesh-kallepelli-dev
   name: api-gateway
-  annotations:
-    image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"api-gateway:latest","namespace":"rupesh-kallepelli-dev"},"fieldPath":"spec.template.spec.containers[?(@.name==\"container\")].image","paused":"true"}]
+  labels:
+    app: api-gateway
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: api-gateway
-  replicas: 1
   template:
     metadata:
       labels:
         app: api-gateway
     spec:
       containers:
-        - name: container
-          image: >-
-            openjdk@sha256:d2b6af2093e823ba0cdee4bcd45a905afe3fa054d08bde55b1d850515da69a08
+        - name: api-gateway
+          image: image-registry.openshift-image-registry.svc:5000/rupesh-kallepelli-dev/api-gateway:latest
           ports:
             - containerPort: 8080
-              protocol: TCP
-          env: []
-      imagePullSecrets: []
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 50%
-      maxUnavailable: 50%
-  paused: false
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
