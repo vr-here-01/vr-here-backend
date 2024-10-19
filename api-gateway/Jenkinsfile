@@ -17,14 +17,14 @@ pipeline {
 //             }
 //         }
 
-        stage('Build Maven Project') {
-            steps {
-                dir('api-gateway') {
-                    sh 'chmod +x mvnw'
-                    sh './mvnw clean package -DskipTests'
-                }
-            }
-        }
+//         stage('Build Maven Project') {
+//             steps {
+//                 dir('api-gateway') {
+//                     sh 'chmod +x mvnw'
+//                     sh './mvnw clean package -DskipTests'
+//                 }
+//             }
+//         }
         stage('Trigger OpenShift Build') {
             steps {
               dir('api-gateway') {
