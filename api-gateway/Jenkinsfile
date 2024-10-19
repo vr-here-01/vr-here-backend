@@ -30,12 +30,16 @@ pipeline {
               dir('api-gateway') {
 //                     withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
                         // Login to OpenShift
-                        sh """
-                        oc login --token=$TOKEN --server=$OPENSHIFT_SERVER
-                        oc apply -f ./helm/buildconfig.yaml
-                        oc start-build $APP_NAME --from-dir=helm/ --follow
-                        """
-//                     }
+                        sh label:"Login into oc" script:"oc login --token=$TOKEN --server=$OPENSHIFT_SERVER"
+                        try{
+                            sh label:"Create buildconfig" script:"oc create -f ./helm/buildconfig.yaml"
+                        }catch (err) {
+                            sh label:"Replace buildconfig oc" script:"oc replace -f ./helm/buildconfig.yaml"
+                        }finally {
+                            sh label : "start src build", script : "oc start-build $APP_NAME --from-dir=helm/ --follow"
+                        	sh label : "Marking step as success", script : "exit 0"
+                        }
+//                  }
                 }
             }
         }
@@ -62,3 +66,13 @@ pipeline {
         }
     }
 }
+try {
+									sh label : "Create src template", script : "oc create -f ${IMAGE_NAME}/build-template/runtime-build.yaml"
+								}
+								catch (err) {
+									sh label : "Replace src template", script : "oc replace -f ${IMAGE_NAME}/build-template/runtime-build.yaml"
+								}
+								finally {
+									sh label : "start src build", script : "oc start-build ${IMAGE_NAME}-runtime --follow"
+									sh label : "Marking step as success", script : "exit 0"
+								}
