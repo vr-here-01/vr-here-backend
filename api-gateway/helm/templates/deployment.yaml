@@ -1,27 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ include "api-gateway.fullname" . }}"
+  namespace: rupesh-kallepelli-dev
+  name: api-gateway
+  annotations: {}
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: "{{ include "api-gateway.name" . }}"
+      app: api-gateway
+  replicas: 3
   template:
     metadata:
       labels:
-        app: "{{ include "api-gateway.name" . }}"
+        app: api-gateway
     spec:
       containers:
-        - name: spring-boot-container
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        - name: container
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest
           ports:
             - containerPort: 8080
-          envFrom:
-            - configMapRef:
-                name: "{{ include "api-gateway.fullname" . }}-configmap"
-          resources:
-            limits:
-              cpu: "{{ .Values.resources.limits.cpu }}"
-              memory: "{{ .Values.resources.limits.memory }}"
+              protocol: TCP
+          env: []
+      imagePullSecrets: []
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  paused: false
