@@ -8,7 +8,7 @@ WORKDIR /app
 RUN ls -al /app/target
 
 # Copy your Spring Boot JAR file (assuming you have it locally)
-COPY target/*.jar app.jar
+COPY /var/lib/jenkins/jobs/backend/branches/master/workspace/api-gateway/target/api-gateway-0.0.1-SNAPSHOT.war app.jar
 
 # Expose the port your application runs on
 EXPOSE 8080
