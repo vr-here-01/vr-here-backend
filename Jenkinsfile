@@ -61,22 +61,22 @@ pipeline {
                 }
             }
         }
-        stage('Expose Service') {
-                    steps {
-                        dir('api-gateway') {
-                            script{
-                                try {
-                                    sh(label: "Login into oc", script: "oc login --token=${TOKEN} --server=${OPENSHIFT_SERVER}")
-                                    sh(label: "Create buildconfig", script: "oc create -f ./helm/templates/service.yaml")
-                                } catch (err) {
-                                    sh(label: "Replace buildconfig oc", script: "oc replace -f ./helm/templates/service.yaml")
-                                } finally {
-                                    sh(label: "Start src build", script: "oc expose svc/${APP_NAME}")
-                                }
-                            }
-                        }
-                    }
-                }
+//         stage('Expose Service') {
+//                     steps {
+//                         dir('api-gateway') {
+//                             script{
+//                                 try {
+//                                     sh(label: "Login into oc", script: "oc login --token=${TOKEN} --server=${OPENSHIFT_SERVER}")
+//                                     sh(label: "Create buildconfig", script: "oc create -f ./helm/templates/service.yaml")
+//                                 } catch (err) {
+//                                     sh(label: "Replace buildconfig oc", script: "oc replace -f ./helm/templates/service.yaml")
+//                                 } finally {
+//                                     sh(label: "Start src build", script: "oc expose svc/${APP_NAME}")
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
 
         stage('Deploy to OpenShift') {
             steps {
