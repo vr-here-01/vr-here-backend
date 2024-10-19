@@ -28,14 +28,12 @@ pipeline {
         stage('Trigger OpenShift Build') {
             steps {
               dir('api-gateway') {
-                       sh 'pwd'
-                       sh 'ls ./helm'
 //                     withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
                         // Login to OpenShift
                         sh """
                         oc login --token=$TOKEN --server=$OPENSHIFT_SERVER
                         oc apply -f ./helm/buildconfig.yaml
-                        oc start-build $APP_NAME --from-dir=api-gateway/ --follow
+                        oc start-build $APP_NAME --from-dir=helm/ --follow
                         """
 //                     }
                 }
