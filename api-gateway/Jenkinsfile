@@ -43,6 +43,8 @@ pipeline {
         stage('Deploy to OpenShift') {
             steps {
                 dir('vr-here-backend') {
+                    sh 'pwd'
+                    sh 'ls'
                     sh """
                     oc project $PROJECT_NAME
                     oc new-app $REGISTRY/$PROJECT_NAME/$APP_NAME:$IMAGE_TAG --name=$APP_NAME || oc rollout latest $APP_NAME
