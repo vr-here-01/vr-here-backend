@@ -29,12 +29,12 @@ pipeline {
             steps {
                  dir('api-gateway') {
                     try{
-                        sh label:"Login into oc" script:"oc login --token=$TOKEN --server=$OPENSHIFT_SERVER"
+                        sh label:"Login into oc" script:"oc login --token=${TOKEN} --server=${OPENSHIFT_SERVER}"
                         sh label:"Create buildconfig" script:"oc create -f ./helm/buildconfig.yaml"
                     }catch (err) {
                          sh label:"Replace buildconfig oc" script:"oc replace -f ./helm/buildconfig.yaml"
                     }finally {
-                      sh label : "start src build", script : "oc start-build $APP_NAME --from-dir=helm/ --follow"
+                      sh label : "start src build", script : "oc start-build ${APP_NAME} --from-dir=helm/ --follow"
                   	  sh label : "Marking step as success", script : "exit 0"
                   }
                 }
@@ -48,8 +48,8 @@ pipeline {
                     sh 'ls'
                     sh """
                     oc apply -f ./helm/templates/deployment.yaml
-                    oc project $PROJECT_NAME
-                    oc new-app $REGISTRY/$PROJECT_NAME/$APP_NAME:$IMAGE_TAG --name=$APP_NAME || oc rollout latest $APP_NAME
+                    oc project ${PROJECT_NAME}
+                    oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout latest ${APP_NAME}
                     oc expose svc/$APP_NAME
                     """
                 }
