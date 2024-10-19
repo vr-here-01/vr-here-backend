@@ -3,7 +3,10 @@ FROM openjdk:11-jdk-slim
 
 # Set the working directory
 WORKDIR /app
-RUN ls -al
+
+# List files in the target directory (this will not run during the Docker build)
+RUN ls -al /app/target
+
 # Copy your Spring Boot JAR file (assuming you have it locally)
 COPY target/*.jar app.jar
 
