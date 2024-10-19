@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: rupesh-kallepelli-dev
-  name: springboot-run-image
+  name: api-gateway
   annotations:
     image.openshift.io/triggers: >-
       [{"from":{"kind":"ImageStreamTag","name":"springboot-run-image:latest","namespace":"rupesh-kallepelli-dev"},"fieldPath":"spec.template.spec.containers[?(@.name==\"container\")].image","paused":"false"}]
@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        app: springboot-run-image
+        app: api-gateway
     spec:
       containers:
         - name: container

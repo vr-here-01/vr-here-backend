@@ -1,10 +1,10 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: springboot-run-image
-  namespace: rupesh-kallepelli-dev  # Adjust to your desired namespace
+  name: api-gatewayli-dev  # Adjust to your desired namespace
 spec:
   tags:
+  namespace: rupesh-kallepel
     - name: latest
       from:
         kind: DockerImage

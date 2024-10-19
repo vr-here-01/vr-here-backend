@@ -16,4 +16,4 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: springboot-run-image:latest  # The name of your ImageStream
+      name: api-gateway:latest  # The name of your ImageStream
