@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Trigger OpenShift Build') {
             steps {
-                script {
+              dir('api-gateway') {
                        sh 'pwd'
                        sh 'ls ./helm'
 //                     withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
