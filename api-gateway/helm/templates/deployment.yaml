@@ -14,13 +14,9 @@ spec:
       labels:
         app: api-gateway
     spec:
-      initContainers:
-        - name: init-prefs
-          image: busybox
-          command: ["sh", "-c", "mkdir -p /var/preferences"]
-          volumeMounts:
-            - name: prefs-volume
-              mountPath: /var/preferences
+      securityContext:
+        runAsUser: 1001  # Adjust this based on your user ID needs
+        fsGroup: 1001    # This group ID will apply to the volume mount
       containers:
         - name: api-gateway
           image: image-registry.openshift-image-registry.svc:5000/rupesh-kallepelli-dev/api-gateway:latest
@@ -35,7 +31,8 @@ spec:
               value: "-Djava.util.prefs.userRoot=/var/preferences"
           volumeMounts:
             - name: prefs-volume
-              mountPath: /var/preferences
+              mountPath: /var/preferences  # This is where your app will look for prefs
       volumes:
         - name: prefs-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: prefs-pvc  # Reference the PVC here
