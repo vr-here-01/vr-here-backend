@@ -8,7 +8,7 @@ WORKDIR /app
 RUN ls -al /
 
 # Copy your Spring Boot JAR file (assuming you have it locally)
-COPY target/*.war app.war
+COPY ~/target/*.war app.war
 
 # Expose the port your application runs on
 EXPOSE 8080
