@@ -28,13 +28,13 @@ pipeline {
         stage('Trigger OpenShift Build') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
+//                     withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
                         // Login to OpenShift
                         sh """
                         oc login --token=$TOKEN --server=$OPENSHIFT_SERVER
                         oc start-build $APP_NAME --from-dir=api-gateway/ --follow
                         """
-                    }
+//                     }
                 }
             }
         }
