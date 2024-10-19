@@ -85,7 +85,6 @@ pipeline {
                     sh """
                     oc apply -f ./helm/templates/deployment.yaml
                     oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout restart deployment ${APP_NAME}
-                    oc expose svc/${APP_NAME}
                     """
                 }
             }
