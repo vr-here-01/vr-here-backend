@@ -24,7 +24,6 @@ pipeline {
             steps {
                 dir('api-gateway') {
                     script {
-                        sh 'rm -rf ~/.m2'
                         sh "chmod +x mvnw"
                         sh "./mvnw clean install -DskipTests"
                     }
@@ -80,7 +79,7 @@ pipeline {
    post {
         always {
             script {
-                // Cleanup everything even if the pipeline fails
+                sh 'rm -rf ~/.m2'
                 sh "rm -rf *"
             }
         }
