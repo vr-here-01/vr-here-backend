@@ -2,22 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: rupesh-kallepelli-dev
-  name: api-gateway
-  annotations: {}
+  name: springboot-run-image
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"springboot-run-image:latest","namespace":"rupesh-kallepelli-dev"},"fieldPath":"spec.template.spec.containers[?(@.name==\"container\")].image","paused":"false"}]
 spec:
   selector:
     matchLabels:
-      app: api-gateway
+      app: springboot-run-image
   replicas: 3
   template:
     metadata:
       labels:
-        app: api-gateway
+        app: springboot-run-image
     spec:
       containers:
         - name: container
           image: >-
-            image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest
+            openjdk@sha256:d2b6af2093e823ba0cdee4bcd45a905afe3fa054d08bde55b1d850515da69a08
           ports:
             - containerPort: 8080
               protocol: TCP
