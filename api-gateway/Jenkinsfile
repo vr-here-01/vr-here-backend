@@ -4,7 +4,7 @@ pipeline {
     environment {
         REGISTRY = 'your-openshift-registry-url' // Use single quotes to avoid variable interpolation
         APP_NAME = 'api-gateway'
-        PROJECT_NAME = 'api'
+        PROJECT_NAME = 'rupesh-kallepelli-dev'
         IMAGE_TAG = 'latest'
         OPENSHIFT_SERVER = 'https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
         TOKEN='sha256~qQERLPLF3gtYXph-UGTcXU7QbwRPutXtIJzr5xl4tck'
