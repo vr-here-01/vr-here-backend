@@ -32,11 +32,8 @@ pipeline {
         stage('Deploy to OpenShift') {
             steps {
                 dir('api-gateway') {
-                    sh 'pwd'
-                    sh 'ls'
                     sh """
                     oc apply -f ./helm/templates/deployment.yaml
-                    oc project ${PROJECT_NAME}
                     oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout latest ${APP_NAME}
                     oc expose svc/${APP_NAME}
                     """

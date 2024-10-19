@@ -1,4 +1,13 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: api-gateway-image
+  name: openjdk-slim
+  namespace: rupesh-kallepelli-dev  # Adjust to your desired namespace
+spec:
+  tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: openjdk:11-jdk-slim  # Use the OpenJDK slim image
+      importPolicy:
+        scheduled: false

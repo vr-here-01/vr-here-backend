@@ -1,13 +1,14 @@
-FROM openjdk:17-jdk-alpine
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:11-jdk-slim
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the pre-built JAR from the local machine into the container
-COPY /api-gateway-0.0.1-SNAPSHOT.war /app/app.war
+# Copy your Spring Boot JAR file (assuming you have it locally)
+COPY target/*.jar app.jar
 
-# Expose the port your app runs on
+# Expose the port your application runs on
 EXPOSE 8080
 
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "/app/app.war"]
+# Run the Spring Boot application
+CMD ["java", "-jar", "app.jar"]

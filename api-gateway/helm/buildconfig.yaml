@@ -8,11 +8,11 @@ spec:
     type: Git
     git:
       uri: 'https://github.com/vr-here-01/vr-here-backend.git'
-    contextDir: /
+    contextDir: api-gateway
   strategy:
     type: Source
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        namespace: openshift
-        name: 'ubi8-openjdk-17:1.17'
+        namespace: rupesh-kallepelli-dev
+        name: 'openjdk-slim:latest'
