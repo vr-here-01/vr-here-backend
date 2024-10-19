@@ -3,7 +3,7 @@ FROM openjdk:11-jdk-slim
 
 # Set the working directory
 WORKDIR /app
-
+RUN ls -al
 # Copy your Spring Boot JAR file (assuming you have it locally)
 COPY target/*.jar app.jar
 
