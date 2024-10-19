@@ -29,9 +29,9 @@ pipeline {
             steps {
               dir('api-gateway') {
 //                     withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
-                        // Login to OpenShift
-                        sh label:"Login into oc" script:"oc login --token=$TOKEN --server=$OPENSHIFT_SERVER"
                         try{
+                         // Login to OpenShift
+                            sh label:"Login into oc" script:"oc login --token=$TOKEN --server=$OPENSHIFT_SERVER"
                             sh label:"Create buildconfig" script:"oc create -f ./helm/buildconfig.yaml"
                         }catch (err) {
                             sh label:"Replace buildconfig oc" script:"oc replace -f ./helm/buildconfig.yaml"
