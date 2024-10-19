@@ -1,18 +1,19 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  namespace: rupesh-kallepelli-dev
   name: api-gateway
+  namespace: rupesh-kallepelli-dev
 spec:
   source:
     type: Git
     git:
       uri: 'https://github.com/vr-here-01/vr-here-backend.git'
-    contextDir: api-gateway
+    contextDir: api-gateway  # Set the correct context directory
   strategy:
-    type: Source
-    sourceStrategy:
-      from:
-        kind: ImageStreamTag
-        namespace: rupesh-kallepelli-dev
-        name: 'openjdk-slim:latest'
+    type: Docker
+    dockerStrategy:
+      dockerfile: Dockerfile  # The name of your Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: api-gateway:latest  # The name of your ImageStream
