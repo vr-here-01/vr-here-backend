@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY = 'your-openshift-registry-url' // Use single quotes to avoid variable interpolation
+        REGISTRY = 'image-registry.openshift-image-registry.svc:5000' // Use single quotes to avoid variable interpolation
         APP_NAME = 'api-gateway'
         PROJECT_NAME = 'rupesh-kallepelli-dev'
         IMAGE_TAG = 'latest'
