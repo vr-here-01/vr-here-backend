@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "api-gateway.fullname" . }}
+  name: "{{ include "api-gateway.fullname" . }}"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "api-gateway.name" . }}
+      app: "{{ include "api-gateway.name" . }}"
   template:
     metadata:
       labels:
-        app: {{ include "api-gateway.name" . }}
+        app: "{{ include "api-gateway.name" . }}"
     spec:
       containers:
         - name: spring-boot-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           ports:
             - containerPort: 8080
           envFrom:
             - configMapRef:
-                name: {{ include "api-gateway.fullname" . }}-configmap
+                name: "{{ include "api-gateway.fullname" . }}-configmap"
           resources:
             limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
