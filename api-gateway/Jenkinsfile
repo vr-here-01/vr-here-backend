@@ -69,7 +69,7 @@ pipeline {
                     sh "oc delete deployment ${APP_NAME} --ignore-not-found"
                     sh """
                     oc apply -f ./helm/templates/deployment.yaml
-                    oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout latest ${APP_NAME}
+                    oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout restart deployment ${APP_NAME}
                     oc expose svc/${APP_NAME}
                     """
                 }
