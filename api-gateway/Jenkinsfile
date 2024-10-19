@@ -11,14 +11,14 @@ pipeline {
     }
 
     stages {
-    stage('Cleanup') {
+        stage('Cleanup') {
                 steps {
                     script {
                         // Delete everything in the workspace
                         sh "rm -rf *"
                     }
                 }
-            }
+        }
         stage('Build') {
             steps {
                 dir('api-gateway') {
@@ -75,12 +75,12 @@ pipeline {
         }
     }
 
-    stage('Cleanup') {
-                steps {
-                    script {
-                        // Delete everything in the workspace
-                        sh "rm -rf *"
-                    }
-                }
+   post {
+        always {
+            script {
+                // Cleanup everything even if the pipeline fails
+                sh "rm -rf *"
             }
+        }
+    }
 }
