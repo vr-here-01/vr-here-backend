@@ -1,7 +1,7 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: openjdk-slim
+  name: springboot-run-image
   namespace: rupesh-kallepelli-dev  # Adjust to your desired namespace
 spec:
   tags:
