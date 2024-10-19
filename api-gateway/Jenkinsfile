@@ -4,9 +4,10 @@ pipeline {
     environment {
         REGISTRY = 'your-openshift-registry-url' // Use single quotes to avoid variable interpolation
         APP_NAME = 'api-gateway'
-        PROJECT_NAME = 'your-project-name'
+        PROJECT_NAME = 'api'
         IMAGE_TAG = 'latest'
-        OPENSHIFT_SERVER = 'https://api.your-openshift-cluster:6443'
+        OPENSHIFT_SERVER = 'https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
+        TOKEN='sha256~qQERLPLF3gtYXph-UGTcXU7QbwRPutXtIJzr5xl4tck'
     }
 
     stages {
@@ -24,14 +25,13 @@ pipeline {
                 }
             }
         }
-
         stage('Trigger OpenShift Build') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
                         // Login to OpenShift
                         sh """
-                        oc login --token=\$TOKEN --server=$OPENSHIFT_SERVER
+                        oc login --token=$TOKEN --server=$OPENSHIFT_SERVER
                         oc start-build $APP_NAME --from-dir=api-gateway/ --follow
                         """
                     }
