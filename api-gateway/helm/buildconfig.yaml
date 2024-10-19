@@ -2,7 +2,7 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   namespace: rupesh-kallepelli-dev
-  name: vr-backend-build-config
+  name: api-gateway
 spec:
   source:
     type: Git
