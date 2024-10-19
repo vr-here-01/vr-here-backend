@@ -32,6 +32,9 @@ pipeline {
                         // Login to OpenShift
                         sh """
                         oc login --token=$TOKEN --server=$OPENSHIFT_SERVER
+                        pwd
+                        ls ./helm
+                        realpath ./helm/buildconfig.yaml
                         oc apply -f ./helm/buildconfig.yaml
                         oc start-build $APP_NAME --from-dir=api-gateway/ --follow
                         """
