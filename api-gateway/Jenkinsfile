@@ -11,7 +11,16 @@ pipeline {
     }
 
     stages {
-
+        stage('Build') {
+            steps {
+                dir('api-gateway') {
+                    script {
+                        sh "chmod +x mvnw"
+                        sh "./mvnw clean install -DskipTests"
+                    }
+                }
+            }
+        }
         stage('Trigger OpenShift ImageStream') {
                 steps {
                     dir('api-gateway') {
