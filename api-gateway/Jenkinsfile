@@ -12,7 +12,7 @@ pipeline {
 
     stages {
 
-        stage('Trigger OpenShift Build') {
+        stage('Trigger OpenShift ImageStream') {
                 steps {
                     dir('api-gateway') {
                         script{
