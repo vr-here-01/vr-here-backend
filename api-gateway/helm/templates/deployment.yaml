@@ -25,10 +25,10 @@ spec:
               cpu: "500m"
           env:
             - name: JAVA_OPTS
-              value: "-Djava.util.prefs.userRoot=/home/app/.java/.userPrefs"
+              value: "-Djava.util.prefs.userRoot=/var/preferences"
           volumeMounts:
             - name: prefs-volume
-              mountPath: /home/app/.java/.userPrefs
+              mountPath: /var/preferences
       volumes:
         - name: prefs-volume
           emptyDir: {}
