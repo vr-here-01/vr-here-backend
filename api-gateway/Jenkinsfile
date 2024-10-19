@@ -14,14 +14,16 @@ pipeline {
         stage('Trigger OpenShift Build') {
             steps {
                 dir('api-gateway') {
-                    try {
-                        // Corrected syntax for `sh` steps using commas to separate `label` and `script`
-                        sh(label: "Login into oc", script: "oc login --token=${TOKEN} --server=${OPENSHIFT_SERVER}")
-                        sh(label: "Create buildconfig", script: "oc create -f ./helm/buildconfig.yaml")
-                    } catch (err) {
-                        sh(label: "Replace buildconfig oc", script: "oc replace -f ./helm/buildconfig.yaml")
-                    } finally {
-                        sh(label: "Start src build", script: "oc start-build ${APP_NAME} --from-dir=helm/ --follow")
+                    script{
+                        try {
+                            // Corrected syntax for `sh` steps using commas to separate `label` and `script`
+                            sh(label: "Login into oc", script: "oc login --token=${TOKEN} --server=${OPENSHIFT_SERVER}")
+                            sh(label: "Create buildconfig", script: "oc create -f ./helm/buildconfig.yaml")
+                        } catch (err) {
+                            sh(label: "Replace buildconfig oc", script: "oc replace -f ./helm/buildconfig.yaml")
+                        } finally {
+                            sh(label: "Start src build", script: "oc start-build ${APP_NAME} --from-dir=helm/ --follow")
+                        }
                     }
                 }
             }
