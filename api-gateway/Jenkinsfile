@@ -44,17 +44,17 @@ pipeline {
             }
         }
 
-//         stage('Deploy to OpenShift') {
-//             steps {
-//                 dir('api-gateway') {
-//                     sh """
-//                     oc apply -f ./helm/templates/deployment.yaml
-//                     oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout latest ${APP_NAME}
-//                     oc expose svc/${APP_NAME}
-//                     """
-//                 }
-//             }
-//         }
+        stage('Deploy to OpenShift') {
+            steps {
+                dir('api-gateway') {
+                    sh """
+                    oc apply -f ./helm/templates/deployment.yaml
+                    oc new-app ${REGISTRY}/${PROJECT_NAME}/${APP_NAME}:${IMAGE_TAG} --name=${APP_NAME} || oc rollout latest ${APP_NAME}
+                    oc expose svc/${APP_NAME}
+                    """
+                }
+            }
+        }
     }
 
     post {
