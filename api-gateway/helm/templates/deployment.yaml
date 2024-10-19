@@ -23,3 +23,12 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
+          env:
+            - name: JAVA_OPTS
+              value: "-Djava.util.prefs.userRoot=/home/app/.java/.userPrefs"
+          volumeMounts:
+            - name: prefs-volume
+              mountPath: /home/app/.java/.userPrefs
+      volumes:
+        - name: prefs-volume
+          emptyDir: {}
