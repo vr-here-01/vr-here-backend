@@ -29,12 +29,12 @@ pipeline {
             steps {
                  dir('api-gateway') {
                     try{
-                        sh 'oc login --token=${TOKEN} --server=${OPENSHIFT_SERVER}'
-                        sh 'oc create -f ./helm/buildconfig.yaml'
+                        sh """oc login --token=${TOKEN} --server=${OPENSHIFT_SERVER}"""
+                        sh """oc create -f ./helm/buildconfig.yaml"""
                     }catch (err) {
-                         sh 'oc replace -f ./helm/buildconfig.yaml'
+                         sh """oc replace -f ./helm/buildconfig.yaml"""
                     }finally {
-                      sh 'oc start-build ${APP_NAME} --from-dir=helm/ --follow'
+                      sh """oc start-build ${APP_NAME} --from-dir=helm/ --follow"""
                   }
                 }
             }
