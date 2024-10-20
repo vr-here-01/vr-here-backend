@@ -7,7 +7,7 @@ pipeline {
         PROJECT_NAME = 'rupesh-kallepelli-dev'
         IMAGE_TAG = 'latest'
         OPENSHIFT_SERVER = 'https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
-        TOKEN = 'sha256~qQERLPLF3gtYXph-UGTcXU7QbwRPutXtIJzr5xl4tck'
+        TOKEN = 'sha256~3kcuBbstko8Ugt0Kw1ertI6pS0MrSi3bP4fuZ8PwXlA'
     }
 
     stages {
