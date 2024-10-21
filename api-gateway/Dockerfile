@@ -5,7 +5,7 @@ FROM openjdk:11-jdk-slim
 WORKDIR /app
 
 # List files in the target directory (this will not run during the Docker build)
-RUN ls -al /
+RUN ls -al /var/lib/jenkins/jobs/backend/branches/master/workspace
 
 # Copy your Spring Boot JAR file (assuming you have it locally)
 COPY /var/lib/jenkins/jobs/backend/branches/master/workspace/api-gateway/api-gateway-0.0.1-SNAPSHOT.war app.war
