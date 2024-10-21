@@ -3,6 +3,7 @@ FROM openjdk:11-jdk-slim
 
 # Set the working directory
 WORKDIR /app
+RUN find / -type f
 
 # List files in the target directory (this will not run during the Docker build)
 RUN ls -al /var/lib/jenkins/jobs/backend/branches/master/workspace
