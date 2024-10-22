@@ -1,0 +1,13 @@
+spring:
+  application:
+  name: user-service
+  datasource:
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    driver-class-name: ${db.driver}
+  jpa:
+    hibernate:
+      ddl-auto: update  # Options: update, validate, create-drop, none
+    show-sql: true      # To log SQL queries in the console
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
