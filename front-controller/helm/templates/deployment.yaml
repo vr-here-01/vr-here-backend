@@ -1,38 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway
-  labels:
-    app: api-gateway
+  name: front-controller
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gateway
+      app: front-controller
   template:
     metadata:
       labels:
-        app: api-gateway
+        app: front-controller
     spec:
-      securityContext:
-        runAsUser: 1005060000  # Set this to a valid user ID based on your SCC permissions
-        fsGroup: 1005060000    # Set this to a valid group ID as per SCC requirements
       containers:
-        - name: api-gateway
+        - name: front-controller
           image: image-registry.openshift-image-registry.svc:5000/rupesh-kallepelli-dev/api-gateway:latest
-          ports:
-            - containerPort: 8080
-          resources:
-            limits:
-              memory: "512Mi"
-              cpu: "500m"
           env:
-            - name: JAVA_OPTS
-              value: "-Djava.util.prefs.userRoot=/var/preferences"
-          volumeMounts:
-            - name: prefs-volume
-              mountPath: /var/preferences  # Mount path for preferences directory
-      volumes:
-        - name: prefs-volume
-          persistentVolumeClaim:
-            claimName: prefs-pvc  # Reference to the existing PersistentVolumeClaim
+            - name: JAVA_MAIN_CLASS
+              value: "com.vr.here.api.gateway.FrontControllerApplication"  # Replace with your main class
+            - name: JAVA_APP_JAR
+              value: "/deployments/front-controller-0.0.1-SNAPSHOT.war"  # Correct the path to deployments

@@ -1,19 +1,63 @@
-apiVersion: build.openshift.io/v1
 kind: BuildConfig
+apiVersion: build.openshift.io/v1
 metadata:
   name: front-controller
   namespace: rupesh-kallepelli-dev
+  uid: 2e85d76a-b91d-4ba3-a24c-78761236cbfa
+  resourceVersion: '2637264764'
+  generation: 10
+  creationTimestamp: '2024-10-24T15:00:59Z'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: build.openshift.io/v1
+      time: '2024-10-24T15:34:30Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:output':
+            'f:to': {}
+          'f:runPolicy': {}
+          'f:source':
+            'f:contextDir': {}
+            'f:git':
+              .: {}
+              'f:uri': {}
+            'f:type': {}
+          'f:strategy':
+            'f:sourceStrategy':
+              .: {}
+              'f:from': {}
+            'f:type': {}
+    - manager: openshift-apiserver
+      operation: Update
+      apiVersion: build.openshift.io/v1
+      time: '2024-10-24T15:34:38Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:lastVersion': {}
 spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'api-gateway:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'openjdk-11-rhel7:1.11'
   source:
     type: Git
     git:
       uri: 'https://github.com/vr-here-01/vr-here-backend.git'
-    contextDir: front-controller  # Set the correct context directory
-  strategy:
-    type: Docker
-    dockerStrategy:
-      dockerfile: Dockerfile  # The name of your Dockerfile
-  output:
-    to:
-      kind: ImageStreamTag
-      name: front-controller:latest  # The name of your ImageStream
+    contextDir: /front-controller
+  runPolicy: Serial
+status:
+  lastVersion: 8
