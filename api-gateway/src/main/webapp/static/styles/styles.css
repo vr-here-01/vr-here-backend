@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.registration-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative; /* Added for positioning eye icon */
+}
+
+.registration-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.registration-form input[type="text"], 
+.registration-form input[type="password"],
+.registration-form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.status {
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.valid {
+    color: green;
+}
+
+.invalid {
+    color: red;
+}
+
+#strength-container {
+    height: 10px;
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+#strength-bar {
+    height: 100%;
+    width: 0;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.eye-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1; /* Added to ensure it sits above the input */
+}
+
+.info-icon {
+    cursor: pointer;
+    margin-left: 5px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: lightgray; /* Light circle background */
+    border-radius: 50%; /* Make it a circle */
+    text-align: center;
+    line-height: 20px; /* Center the text vertically */
+    font-size: 14px; /* Adjust font size */
+    color: #000; /* Icon color */
+    position: relative; /* To position the tooltip */
+}
+
+.info-icon:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 50%;
+    top: 25px; /* Adjust based on preference */
+    transform: translateX(-50%);
+    background-color: #fff; /* Tooltip background */
+    color: #333; /* Tooltip text color */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+}
