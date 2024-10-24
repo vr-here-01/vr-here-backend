@@ -1,14 +1,14 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: api-gateway
+  name: front-controller
   namespace: rupesh-kallepelli-dev
 spec:
   source:
     type: Git
     git:
       uri: 'https://github.com/vr-here-01/vr-here-backend.git'
-    contextDir: api-gateway  # Set the correct context directory
+    contextDir: front-controller  # Set the correct context directory
   strategy:
     type: Docker
     dockerStrategy:
@@ -16,4 +16,4 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: api-gateway:latest  # The name of your ImageStream
+      name: front-controller:latest  # The name of your ImageStream
