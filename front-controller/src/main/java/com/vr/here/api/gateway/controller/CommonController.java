@@ -15,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import com.vr.here.api.gateway.model.Country;
 import com.vr.here.api.gateway.serviceproxy.UserServiceProxy;
 
-import jakarta.websocket.server.PathParam;
+import javax.websocket.server.PathParam;
+
 
 @RestController
 @RequestMapping("api")
