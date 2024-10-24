@@ -86,32 +86,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>openshift</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.eclipse.jkube</groupId>
-                        <artifactId>jkube-maven-plugin</artifactId>
-                        <version>1.8.0</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>resource</goal> <!-- Generate Kubernetes/OpenShift YAML resources -->
-                                    <goal>build</goal> <!-- Build Docker images -->
-                                    <goal>deploy</goal> <!-- Deploy to OpenShift -->
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <mode>openshift</mode> <!-- Target OpenShift -->
-                            <jkube.generator.name>front-controller</jkube.generator.name> <!-- Customize image name -->
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
 </project>
