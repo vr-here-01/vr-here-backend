@@ -1,6 +1,6 @@
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:17-jdk-slim
-
+USER root
 # Set the working directory
 WORKDIR /app
 #RUN find / -type f
