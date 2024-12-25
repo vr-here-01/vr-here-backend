@@ -3,6 +3,8 @@ FROM openjdk:17-jdk-slim
 USER root
 # Set the working directory
 WORKDIR /app
+
+COPY / /app
 RUN find / -type f
 RUN pwd
 
@@ -10,9 +12,6 @@ RUN pwd
 RUN ls -al 
 RUN chmod -R +rwx ./
 RUN ./mvnw clean install
-
-# Copy your Spring Boot JAR file (assuming you have it locally)
-COPY /target/*.war app.war
 
 # Expose the port your application runs on
 EXPOSE 8080
