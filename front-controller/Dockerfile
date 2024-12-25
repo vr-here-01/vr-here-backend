@@ -13,7 +13,7 @@ RUN ls -al
 RUN chmod -R +rwx ./
 RUN ./mvnw clean install
 
-RUN cp /target/*.war /app/app.war
+RUN cp ./target/*.war /app/app.war
 
 # Expose the port your application runs on
 EXPOSE 8080
